@@ -1,0 +1,53 @@
+{% load static %}
+<section id="news-detail" data-stellar-background-ratio="0.5">
+    <div class="container">
+         <div class="row">
+               
+              <div class="col-md-8 col-sm-7">
+               {% for haber in news %}
+                   <div class="news-detail-thumb">
+                        <div class="news-image">
+                             <img src="{{ haber.resim.url }}" class="img-responsive" alt="">
+                        </div>
+                        <h3>{{ haber.baslik }}</h3>
+                        <p>{{ haber.icerik }}</p>
+                        <blockquote>{{ haber.icerik }}</blockquote>
+                        <p>{{ haber.icerik }}</p>
+                        
+                        <ul>
+                             <li>Phasellus posuere nisi eleifend, vestibulum ipsum eleifend</li>
+                             <li>Nulla sapien neque, posuere vitae porta eu</li>
+                             <li>Fusce quis enim vel libero pulvinar gravida sed eu justo</li>
+                        </ul>
+
+                        <p>{{ haber.icerik }}</p>
+                   </div>
+              </div>
+              
+              <div class="col-md-4 col-sm-5">
+                   <div class="news-sidebar">
+                        <div class="news-author">
+                             <h4>Yazar hakkında</h4>
+                             <p>{{ haber.yazar.ad }}, {{ haber.tarih }} <br> {{ haber.yazar.pozisyon }} <br><br> {{ haber.yazar.bilgi }} </p>
+                        </div>
+               {% endfor %}
+               <br>
+                        <div class="news-categories">
+                             <h4>Kategoriler</h4>
+                             {% for kategori in category %}
+                                  <li><a href="#"><i class="fa fa-angle-right"></i>{{ kategori }}</a></li>
+                              {% endfor %}
+                        </div>
+                        <br><br>
+                         <div class="news-social-share">
+                         <h4>Bu Yazıyı Paylaşın</h4>
+                              <a href="#" class="btn btn-primary"><i class="fa fa-facebook"></i>Facebook</a>
+                              <a href="#" class="btn btn-success"><i class="fa fa-twitter"></i>Twitter</a>
+                              <a href="#" class="btn btn-danger"><i class="fa fa-google-plus"></i>Google+</a>
+                         </div>
+                   </div>
+              </div>
+              
+         </div>
+    </div>
+</section>

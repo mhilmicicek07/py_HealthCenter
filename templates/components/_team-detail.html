@@ -1,0 +1,29 @@
+{% load static %}
+<section id="team" data-stellar-background-ratio="0.5">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 col-sm-11">
+                <div class="clearfix"></div>
+
+                {% for doktor in team %}
+                <div class="col-md-6 col-sm-5">
+                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
+                        <h2>{{ doktor.isim }}</h2>
+                        <p>{{ doktor.brans }}</p>
+                        <p>{{ doktor.email }} - Dahili : {{ doktor.dahili }} </p>
+                        <img src="{{ doktor.resim.url }}" class="img-responsive" style="width:750px; height:500px;" alt="">
+                    </div>
+                </div>
+
+                <div class="team-info">
+                    <p>{{ doktor.ozgecmis }}</p>
+               </div>
+               {% endfor %}
+
+            </div>
+        
+        </div>
+    </div>
+</section>       

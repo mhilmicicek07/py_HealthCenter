@@ -1,0 +1,38 @@
+{% load static %}
+<section id="news" data-stellar-background-ratio="2.5">
+     <div class="container">
+          <div class="row">
+               
+               <div class="col-md-12 col-sm-12">
+                    
+                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                         <h2>Son Haberler</h2>
+                    </div>
+               </div>               
+               
+               {% for haber in news %}
+               <div class="col-md-4 col-sm-6">
+
+                   <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                        <a href="{% url "news_detail_page" haber.slug %}">
+                             <img src="{{ haber.resim.url }}" class="img-responsive" alt="">
+                        </a>
+                        <div class="news-info">
+                             <span>{{ haber.tarih }}</span>
+                             <h3><a href="{% url "news_detail_page" haber.slug %}">{{ haber.baslik }}</a></h3>
+                             <p>{{ haber.yazar.bilgi }}</p>
+                             <div class="author">
+                                  <img src="{{ haber.yazar.resim.url }}" class="img-responsive" alt="">
+                                  <div class="author-info">
+                                       <h5>{{ haber.yazar }}</h5>
+                                       <p>{{ haber.yazar.pozisyon }}</p>
+                                  </div>
+                             </div>
+                        </div>
+                   </div>
+              </div>
+              {% endfor %}
+
+         </div>
+     </div>
+</section>
