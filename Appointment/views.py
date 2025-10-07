@@ -15,6 +15,7 @@ def randevu_view(request):
             bolum = form.cleaned_data.get('bolum')
 
             if Randevu.objects.filter(tarih=tarih, saat=saat, bolum=bolum).exists():
+                print("DEBUG_MESSAGES:", list(messages.get_messages(request)))
                 messages.error(request, 'Lütfen farklı bir tarih/saat seçiniz!')
             else:
                 form.save()
