@@ -20,8 +20,8 @@ def randevu_view(request):
                 form.save()
                 messages.success(request, 'Randevu kayıt işlemi başarılı!')
                 return redirect('/payment/')
-        else:
-            form = RandevuForm()
+        # else:
+        #     form = RandevuForm()
 
         return render(request, 'Appointment/appointment.html', {
             'form': form,

@@ -5,7 +5,7 @@ class RandevuForm(forms.ModelForm):
     class Meta:
         model = Randevu
         fields = ('isim','email','telefon','tarih','saat','bolum','mesaj')
-        label = {
+        labels = {
             'isim':'İsim',
             'email':'Mail Adresi',
             'telefon':'Telefon Numarası',
