@@ -45,14 +45,14 @@ def payment(request):
     }
 
     basket_items = [
-        {'id': 'BI101', 'name': 'Randevu Ücreti', 'category1': 'Sağlık', 'itemType': 'VIRTUAL', 'price': '1.0'},
+        {'id': 'BI101', 'name': 'Randevu Ücreti', 'category1': 'Sağlık', 'itemType': 'VIRTUAL', 'price': '500.0'},
     ]
 
     iyzico_request = {
         'locale': 'tr',
         'conversationId': '123456789',
-        'price': '1.0',
-        'paidPrice': '1.0',
+        'price': '500.0',
+        'paidPrice': '500.0',
         'currency': 'TRY',
         'basketId': 'B67832',
         'paymentGroup': 'PRODUCT',
