@@ -1,25 +1,24 @@
 from django.shortcuts import render, redirect
-import iyzipay
-import json
-from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from Appointment.forms import RandevuForm
+from django.http import HttpResponse
+import iyzipay
+import json
 
-api_key = 'sandbox-4pXMNqLNKKyHdjhPdsAOpgsJt3wlOSqU'
-secret_key = 'sandbox-z9a7giJpDFJBemWw5l6HZVEPGvbGa9lk'
-base_url = 'sandbox-api.iyzipay.com'
-
+# İyziPay API bilgileri (sandbox veya production)
 options = {
-    'api_key': api_key,
-    'secret_key': secret_key,
-    'base_url': base_url,
+    'api_key': 'sandbox-4pXMNqLNKKyHdjhPdsAOpgsJt3wlOSqU',
+    'secret_key': 'sandbox-z9a7giJpDFJBemWw5l6HZVEPGvbGa9lk',
+    'base_url': 'sandbox-api.iyzipay.com',
 }
 
 
 @csrf_exempt
 def payment(request):
+    """
+    Ödeme formunu oluşturur ve kullanıcıya gösterir.
+    """
     buyer = {
         'id': 'BY789',
         'name': 'John',
@@ -30,10 +29,10 @@ def payment(request):
         'lastLoginDate': '2015-10-05 12:43:35',
         'registrationDate': '2013-04-21 15:12:09',
         'registrationAddress': 'Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1',
-        'ip': '85.34.78.112',
+        'ip': request.META.get('REMOTE_ADDR', '127.0.0.1'),
         'city': 'Istanbul',
         'country': 'Turkey',
-        'zipCode': '34732'
+        'zipCode': '34732',
     }
 
     address = {
@@ -41,68 +40,91 @@ def payment(request):
         'city': 'Istanbul',
         'country': 'Turkey',
         'address': 'Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1',
-        'zipCode': '34732'
+        'zipCode': '34732',
     }
 
     basket_items = [
-        {'id': 'BI101', 'name': 'Randevu Ücreti', 'category1': 'Sağlık', 'itemType': 'VIRTUAL', 'price': '500.0'},
+        {
+            'id': 'BI101',
+            'name': 'Randevu Ücreti',
+            'category1': 'Sağlık',
+            'itemType': 'VIRTUAL',
+            'price': '500.00',
+        }
     ]
 
-    iyzico_request = {
+    request_data = {
         'locale': 'tr',
         'conversationId': '123456789',
-        'price': '500.0',
-        'paidPrice': '500.0',
+        'price': '500.00',
+        'paidPrice': '500.00',
         'currency': 'TRY',
         'basketId': 'B67832',
         'paymentGroup': 'PRODUCT',
-        "callbackUrl": "http://127.0.0.1:8000/payment/result/",
+        'callbackUrl': request.build_absolute_uri('/payment/result/'),
         'buyer': buyer,
         'shippingAddress': address,
         'billingAddress': address,
         'basketItems': basket_items,
     }
 
-    checkout_form_initialize = iyzipay.CheckoutFormInitialize().create(iyzico_request, options)
-    content = checkout_form_initialize.read().decode('utf-8')
-    json_content = json.loads(content)
+    try:
+        checkout_form = iyzipay.CheckoutFormInitialize().create(request_data, options)
+        response = json.loads(checkout_form.read().decode('utf-8'))
 
-    # Token'ı session'da sakla
-    request.session['checkout_token'] = json_content['token']
+        token = response.get('token')
+        form_content = response.get('checkoutFormContent', '')
 
-    return HttpResponse(json_content['checkoutFormContent'])
+        if not token:
+            messages.error(request, "Ödeme başlatılamadı. Lütfen tekrar deneyin.")
+            return redirect('randevu_page')
+
+        # Token'ı session'da sakla
+        request.session['checkout_token'] = token
+
+        return HttpResponse(form_content)
+
+    except Exception as e:
+        messages.error(request, f"Ödeme sırasında bir hata oluştu: {str(e)}")
+        return redirect('randevu_page')
 
 
 @require_http_methods(['POST'])
 @csrf_exempt
 def result(request):
+    """
+    Ödeme sonucu callback endpoint'i.
+    """
     token = request.session.get('checkout_token')
     if not token:
-        messages.error(request, "Ödeme token bulunamadı. Lütfen tekrar deneyin.")
+        messages.error(request, "Geçersiz veya süresi dolmuş ödeme isteği.")
         return redirect('randevu_page')
 
-    iyzico_request = {
+    request_data = {
         'locale': 'tr',
         'conversationId': '123456789',
         'token': token,
     }
-    checkout_form_result = iyzipay.CheckoutForm().retrieve(iyzico_request, options)
-    result_data = checkout_form_result.read().decode('utf-8')
-    sonuc = json.loads(result_data, object_pairs_hook=list)
 
-    status = next((v for k, v in sonuc if k == 'status'), None)
+    try:
+        result_obj = iyzipay.CheckoutForm().retrieve(request_data, options)
+        result_json = json.loads(result_obj.read().decode('utf-8'))
 
-    # Mesajları durumlara göre sadece bir kez göster
-    if status == 'success':
-        messages.success(request, "Ödeme başarıyla gerçekleşti!")
-    elif status == 'failure':
-        messages.error(request, "Ödeme başarısız oldu. Lütfen tekrar deneyin.")
-    else:
-        messages.warning(request, "Bilinmeyen bir yanıt alındı.")
+        status = result_json.get('status')
+        payment_id = result_json.get('paymentId')
+        error_message = result_json.get('errorMessage')
 
-    # Token artık kullanılmayacak, session'dan sil
-    if 'checkout_token' in request.session:
-        del request.session['checkout_token']
+        if status == 'success':
+            messages.success(request, "Ödeme başarıyla tamamlandı. Randevunuz oluşturuldu.")
+        else:
+            messages.error(request, f"Ödeme başarısız oldu: {error_message or 'Bilinmeyen hata'}")
+
+    except Exception as e:
+        messages.error(request, f"Ödeme sonucu alınamadı: {str(e)}")
+
+    finally:
+        # Token temizleniyor
+        request.session.pop('checkout_token', None)
 
     return redirect('randevu_page')
 
