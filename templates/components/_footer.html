@@ -18,7 +18,7 @@
               <div class="col-md-4 col-sm-4"> 
                    <div class="footer-thumb"> 
                         <h4 class="wow fadeInUp" data-wow-delay="0.4s">Son Haberler</h4>
-                        {% for haber in news %}
+                        {% for haber in other_news %}
                         <div class="latest-stories">
                              <div class="stories-image">
                                   <a href="{% url "news_detail_page" haber.slug %}"><img src="{{ haber.resim.url }}" class="img-responsive" alt="{{ haber.baslik }}" loading="lazy"></a>
