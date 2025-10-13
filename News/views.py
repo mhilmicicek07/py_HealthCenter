@@ -11,16 +11,16 @@ def news_view(request):
         'author': author,
     })
 
-
 def news_detail_view(request, slug):
     category = Category.objects.all()
-    # Tek haber objesini alıyoruz:
     selected_news = get_object_or_404(News, slug=slug)
-    # Diğer haberleri de al (footer veya sidebar için):
-    other_news = News.objects.exclude(slug=slug)[:3]  # mesela 4 tanesini göstermek için
+    other_news = News.objects.exclude(slug=slug).order_by('-id')[:3]  # 3 son haber
 
+    # Footer için tüm haberleri context'e ekleyelim
     return render(request, 'News/news.html', {
         'news_detail': selected_news,
+        'selected_news': selected_news,  # footer template kontrolü için
         'other_news': other_news,
         'category': category,
+        'latest_news': other_news,  # context processor yerine footer çalışsın
     })
