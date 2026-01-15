@@ -1,98 +1,97 @@
-# 🏥 Health Center Yönetim Sistemi
+# 🏥 Health Center Management System
 
-Bu proje, bir sağlık merkezi için **randevu yönetimi**, **hasta kayıt işlemleri** ve **doktor takibi** süreçlerini kolaylaştırmak amacıyla geliştirilmiş bir **Django tabanlı web uygulamasıdır**.  
-Kullanıcı dostu arayüzü ve yönetim paneli sayesinde, hasta ve doktor bilgilerinin yönetimi, randevu oluşturma ve sistemdeki kayıtların düzenlenmesi kolayca yapılabilir.
-
----
-
-## 🚀 Özellikler
-
-- 👩‍⚕️ **Hasta Yönetimi:** Yeni hasta ekleme, bilgileri güncelleme, kayıt silme.  
-- 🧑‍⚕️ **Doktor Yönetimi:** Doktor profilleri oluşturma ve düzenleme.  
-- 📅 **Randevu Sistemi:** Hastalar için uygun tarih ve saate göre randevu oluşturma.  
-- 🔐 **Kullanıcı Girişi ve Yetkilendirme:** Admin paneli üzerinden güvenli erişim.  
-- 💬 **İletişim Formu:** Ziyaretçilerin sağlık merkeziyle iletişim kurmasını sağlar.  
-- 📊 **Dashboard:** Yönetici için genel istatistiklerin görüntülenmesi.  
-- 💾 **SQLite Veritabanı:** Verilerin güvenli ve kalıcı şekilde saklanması.  
-- 💻 **Responsive Arayüz:** Tüm cihazlarda uyumlu, Bootstrap tabanlı tasarım.  
+[🇹🇷 Türkçe](#-türkçe) | [🇺🇸 English](#-english) | [🇩🇪 Deutsch](#-deutsch)
 
 ---
 
-## 🧩 Kullanılan Teknolojiler
+## 🇹🇷 Türkçe
 
-| Teknoloji | Rolü |
-|------------|-------|
-| **Python (Django Framework)** | Sunucu tarafı geliştirme, veri yönetimi ve URL yönlendirme. |
-| **SQLite3** | Hafif ve dahili veritabanı sistemi. |
-| **HTML5** | Sayfa yapısının oluşturulması. |
-| **CSS3 & Bootstrap 5** | Modern, responsive ve düzenli kullanıcı arayüzü. |
-| **JavaScript (ES6)** | Dinamik içerik ve etkileşimli özellikler. |
-| **FontAwesome** | İkon ve görsel bileşenler. |
+### 📋 Proje Hakkında
+Bu proje, bir sağlık merkezi için **randevu yönetimi**, **hasta kayıt işlemleri**, **doktor takibi** ve **ödeme süreçlerini** (Iyzico entegrasyonu) kolaylaştırmak amacıyla geliştirilmiş bir **Django** tabanlı web uygulamasıdır. Kullanıcı dostu arayüzü sayesinde randevu oluşturma ve yönetim süreçleri hızlıca gerçekleştirilebilir.
 
----
+### 🚀 Özellikler
+- 📅 **Randevu Sistemi:** Hastaların bölüm seçerek uygun tarih ve saate göre randevu oluşturması.
+- 💳 **Ödeme Entegrasyonu:** Iyzico (Iyzipay) üzerinden güvenli ödeme altyapısı.
+- 👩‍⚕️ **Doktor & Ekip Yönetimi:** Sağlık merkezi personelinin ve doktorların profillerinin yönetimi.
+- 📰 **Haberler & Duyurular:** Dinamik haber ve duyuru içerikleri.
+- 🔐 **Gelişmiş Admin Paneli:** Tüm kayıtların (randevu, hasta, ekip) yönetilebileceği panel.
+- 📱 **Responsive Tasarım:** Bootstrap 5 ile tüm cihazlara uyumlu arayüz.
 
-## 📂 Proje Dosya Yapısı
+### 🛠️ Kullanılan Teknolojiler
+- **Backend:** Python, Django 4.2+
+- **Veritabanı:** SQLite3
+- **Ödeme:** Iyzico API (Iyzipay)
+- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, FontAwesome
 
-📁 py_HealthCenter
-├── 📁 healthcenter # Ana Django uygulaması
-│ ├── settings.py
-│ ├── urls.py
-│ └── views.py
-├── 📁 static # CSS, JS, görseller
-│ ├── 📁 css
-│ ├── 📁 js
-│ └── 📁 images
-├── 📁 templates # HTML şablonları
-│ ├── index.html
-│ ├── about.html
-│ ├── contact.html
-│ ├── appointment.html
-│ └── base.html
-├── 📄 manage.py
-├── 📄 db.sqlite3
-└── 📄 README.md
-
+### ⚙️ Kurulum
+1. Repoyu klonlayın: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
+2. Dizin içerisine girin: `cd py_HealthCenter`
+3. Bağımlılıkları yükleyin: `pip install django pillow iyzipay`
+4. Veritabanını güncelleyin: `python manage.py migrate`
+5. Sunucuyu başlatın: `python manage.py runserver`
 
 ---
 
-## ⚙️ Kurulum ve Çalıştırma
+## 🇺🇸 English
 
-Bu projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyin:
+### 📋 About the Project
+This project is a **Django-based** web application designed to streamline **appointment management**, **patient registration**, **doctor tracking**, and **payment processes** (Iyzico integration) for a health center. Its user-friendly interface allows for quick appointment creation and management.
 
-1. Bu projeyi klonlayın:  
-   ```bash
-   git clone https://github.com/mhilmicicek07/py_HealthCenter.git
-Proje dizinine geçin:
+### 🚀 Features
+- 📅 **Appointment System:** Patients can choose a department and schedule appointments based on date and time.
+- 💳 **Payment Integration:** Secure payment infrastructure via Iyzico (Iyzipay).
+- 👩‍⚕️ **Doctor & Team Management:** Management of profiles for medical staff and doctors.
+- 📰 **News & Announcements:** Dynamic news and announcement content.
+- 🔐 **Advanced Admin Panel:** A panel to manage all records (appointments, patients, team).
+- 📱 **Responsive Design:** Interface compatible with all devices using Bootstrap 5.
 
+### 🛠️ Technologies Used
+- **Backend:** Python, Django 4.2+
+- **Database:** SQLite3
+- **Payment:** Iyzico API (Iyzipay)
+- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, FontAwesome
 
-cd py_HealthCenter
-Gerekli bağımlılıkları yükleyin (örnek requirements.txt oluşturabilirsiniz):
+### ⚙️ Installation
+1. Clone the repo: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
+2. Navigate to directory: `cd py_HealthCenter`
+3. Install dependencies: `pip install django pillow iyzipay`
+4. Migrate database: `python manage.py migrate`
+5. Start server: `python manage.py runserver`
 
+---
 
-pip install django pillow
-Veritabanını hazırlayın:
+## 🇩🇪 Deutsch
 
+### 📋 Über das Projekt
+Dieses Projekt ist eine **Django-basierte** Webanwendung, die entwickelt wurde, um **Terminmanagement**, **Patientenregistrierung**, **Arztverfolgung** und **Zahlungsprozesse** (Iyzico-Integration) für ein Gesundheitszentrum zu optimieren. Die benutzerfreundliche Oberfläche ermöglicht eine schnelle Terminerstellung und -verwaltung.
 
-python manage.py migrate
-Geliştirme sunucusunu başlatın:
+### 🚀 Funktionen
+- 📅 **Terminsystem:** Patienten können eine Abteilung wählen und Termine nach Datum und Uhrzeit vereinbaren.
+- 💳 **Zahlungsintegration:** Sichere Zahlungsinfrastruktur über Iyzico (Iyzipay).
+- 👩‍⚕️ **Arzt- & Team-Management:** Verwaltung von Profilen für medizinisches Personal und Ärzte.
+- 📰 **Nachrichten & Ankündigungen:** Dynamische Inhalte für Nachrichten und Ankündigungen.
+- 🔐 **Erweitertes Admin-Panel:** Ein Panel zur Verwaltung aller Datensätze (Termine, Patienten, Team).
+- 📱 **Responsive Design:** Mit Bootstrap 5 kompatible Benutzeroberfläche für alle Geräte.
 
+### 🛠️ Verwendete Technologien
+- **Backend:** Python, Django 4.2+
+- **Datenbank:** SQLite3
+- **Zahlung:** Iyzico API (Iyzipay)
+- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, FontAwesome
 
-python manage.py runserver
-Tarayıcıda açın:
-👉 http://127.0.0.1:8000
+### ⚙️ Installation
+1. Repository klonen: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
+2. In das Verzeichnis wechseln: `cd py_HealthCenter`
+3. Abhängigkeiten installieren: `pip install django pillow iyzipay`
+4. Datenbank migrieren: `python manage.py migrate`
+5. Server starten: `python manage.py runserver`
 
-🧠 Teknik Açıklama
-Uygulama Django MVC (Model-View-Template) mimarisiyle geliştirilmiştir.
-Veritabanı işlemleri models.py dosyasında tanımlanmış, kullanıcı etkileşimleri views.py tarafından yönetilmektedir.
-Tüm sayfa tasarımları templates klasöründe düzenlenmiş olup, Bootstrap yardımıyla modern bir arayüz oluşturulmuştur.
-Randevu sistemi, kullanıcıların form üzerinden veri girişi yapmasını ve bu verilerin admin panelinde saklanmasını sağlar.
+---
 
-👨‍💻 Geliştirici
-Mehmet Hilmi Çiçek
-💼 Full Stack Web Developer
-📍 Geislingen an der Steige
-💬 “Basit ama tutarlı kod, karmaşık olandan her zaman üstündür.”
+### 👨‍💻 Developer
+**Mehmet Hilmi Çiçek**
+- 💼 Full Stack Web Developer
+- 📍 Geislingen an der Steige
 
-🪪 Lisans
-Bu proje açık kaynaklıdır.
-İsteyen herkes kodu inceleyebilir, geliştirebilir veya kişisel projelerinde kullanabilir.
+### 🪪 License
+This project is open source. Feel free to use and improve it.
