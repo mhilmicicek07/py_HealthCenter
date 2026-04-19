@@ -1,0 +1,3 @@
+Django==4.2.7
+Pillow
+iyzipay==1.0.46

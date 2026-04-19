@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Author, Category, News
 
+
 def news_view(request):
-    news = News.objects.all()
+    news = News.objects.order_by('-tarih')
     category = Category.objects.all()
     author = Author.objects.all()
-    return render(request, 'Home/index.html', {
+    return render(request, 'News/news_list.html', {
         'news': news,
         'category': category,
         'author': author,

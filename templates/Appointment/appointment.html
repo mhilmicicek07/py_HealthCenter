@@ -4,16 +4,16 @@
     {% include "components/_pre-loader.html" %}
     {% include "components/_header.html" %}
     {% include "components/_menu.html" %}
-    
+
     <div class="container mt-3">
         {% include "components/_messages.html" %}
     </div>
 
-    {% csrf_token %}
-    {% if mesaj %}
-        <p>{{ mesaj }}</p>
-    {% endif %}
     {% include "components/_randevu-al.html" %}
+
+    {% if news %}
+        {% include "components/_news.html" %}
+    {% endif %}
 
     {% include "components/_footer.html" %}
 {% endblock content %}
