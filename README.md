@@ -26,19 +26,13 @@ Bu proje, bir sağlık merkezi için **randevu yönetimi**, **hasta kayıt işle
 ### ⚙️ Kurulum
 1. Repoyu klonlayın: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
 2. Dizin içerisine girin: `cd py_HealthCenter`
-3. (Tercihen) sanal ortam oluşturun ve aktive edin: `python -m venv .venv && source .venv/bin/activate`
-4. Bağımlılıkları yükleyin: `pip install -r requirements.txt`
-5. Ortam değişkenlerini ayarlayın (aşağıya bakın). Yerelde bir `.env` dosyası kullanabilirsiniz.
-6. Veritabanını güncelleyin: `python manage.py migrate`
-7. Yönetici hesabı oluşturun (opsiyonel): `python manage.py createsuperuser`
-8. Statik dosyaları toplayın (deploy için önerilir): `python manage.py collectstatic --noinput`
-9. Sunucuyu başlatın: `python manage.py runserver`
+3. Bağımlılıkları yükleyin: `pip install django pillow iyzipay`
+4. Veritabanını güncelleyin: `python manage.py migrate`
+5. Statik dosyaları toplayın (deploy için önerilir): `python manage.py collectstatic --noinput`
+6. Sunucuyu başlatın: `python manage.py runserver`
 
 ### 🔑 Ortam Değişkenleri
-- `DJANGO_SECRET_KEY` (üretimde kendi anahtarınızı girin; aksi halde varsayılan geliştirme anahtarı kullanılır)
-- `DJANGO_DEBUG` (`True` / `False`, varsayılan `True`)
-- `DJANGO_ALLOWED_HOSTS` (virgülle ayrılmış host listesi, boş bırakılırsa `[]`)
-- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (varsayılan: `https://sandbox-api.iyzipay.com`) ödeme entegrasyonu için kullanılır.
+- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (varsayılan: sandbox-api.iyzipay.com) ödeme entegrasyonu için kullanılır.
 - Değer girmezseniz sandbox anahtarları devreye girer; üretim için kendi anahtarlarınızı tanımlayın.
 
 ### 🧪 Test
@@ -68,19 +62,13 @@ This project is a **Django-based** web application designed to streamline **appo
 ### ⚙️ Installation
 1. Clone the repo: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
 2. Navigate to directory: `cd py_HealthCenter`
-3. (Optional) create & activate a virtualenv: `python -m venv .venv && source .venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Configure environment variables (see below); a local `.env` works fine.
-6. Apply migrations: `python manage.py migrate`
-7. Create a superuser (optional): `python manage.py createsuperuser`
-8. Collect static files for deployment: `python manage.py collectstatic --noinput`
-9. Start the server: `python manage.py runserver`
+3. Install dependencies: `pip install django pillow iyzipay`
+4. Migrate database: `python manage.py migrate`
+5. Collect static files (recommended for deploy): `python manage.py collectstatic --noinput`
+6. Start server: `python manage.py runserver`
 
 ### 🔑 Environment Variables
-- `DJANGO_SECRET_KEY` (set your own key for production; otherwise the dev key is used)
-- `DJANGO_DEBUG` (`True` / `False`, defaults to `True`)
-- `DJANGO_ALLOWED_HOSTS` (comma-separated list; empty means `[]`)
-- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (default: `https://sandbox-api.iyzipay.com`) for payment integration.
+- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (default: sandbox-api.iyzipay.com) are read by the payment integration.
 - Sandbox keys are used by default; set your own for production.
 
 ### 🧪 Tests
@@ -110,20 +98,14 @@ Dieses Projekt ist eine **Django-basierte** Webanwendung, die entwickelt wurde, 
 ### ⚙️ Installation
 1. Repository klonen: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
 2. In das Verzeichnis wechseln: `cd py_HealthCenter`
-3. (Optional) virtuelle Umgebung erstellen & aktivieren: `python -m venv .venv && source .venv/bin/activate`
-4. Abhängigkeiten installieren: `pip install -r requirements.txt`
-5. Umgebungsvariablen setzen (siehe unten); lokal geht das bequem über eine `.env`.
-6. Datenbank migrieren: `python manage.py migrate`
-7. Superuser erstellen (optional): `python manage.py createsuperuser`
-8. Statische Dateien sammeln (für Deploy empfohlen): `python manage.py collectstatic --noinput`
-9. Server starten: `python manage.py runserver`
+3. Abhängigkeiten installieren: `pip install django pillow iyzipay`
+4. Datenbank migrieren: `python manage.py migrate`
+5. Statische Dateien sammeln (für Deploy empfohlen): `python manage.py collectstatic --noinput`
+6. Server starten: `python manage.py runserver`
 
 ### 🔑 Umgebungsvariablen
-- `DJANGO_SECRET_KEY` (in Produktion einen eigenen Schlüssel setzen, sonst wird der Dev-Schlüssel genutzt)
-- `DJANGO_DEBUG` (`True` / `False`, Standard `True`)
-- `DJANGO_ALLOWED_HOSTS` (kommagetrennte Liste; leer bedeutet `[]`)
-- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (Standard: `https://sandbox-api.iyzipay.com`) für die Zahlungsintegration.
-- Ohne eigene Werte greifen Sandbox-Schlüssel; für Produktion bitte ersetzen.
+- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (Standard: sandbox-api.iyzipay.com) werden vom Zahlungsmodul gelesen.
+- Ohne diese Werte werden Sandbox-Schlüssel genutzt; für Produktion eigene Schlüssel setzen.
 
 ### 🧪 Tests
 - `python manage.py test`
