@@ -1,18 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    {% include "components/_pre-loader.html" %}
     {% include "components/_header.html" %}
     {% include "components/_menu.html" %}
     
-    <div class="container mt-3">
-        {% include "components/_messages.html" %}
-    </div>
-
     {% csrf_token %}
-    {% if mesaj %}
-        <p>{{ mesaj }}</p>
-    {% endif %}
+    <p>{{ mesaj }}</p>
     {% include "components/_randevu-al.html" %}
 
     {% include "components/_footer.html" %}

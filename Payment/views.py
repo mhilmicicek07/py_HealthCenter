@@ -5,9 +5,6 @@ import iyzipay
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from Appointment.forms import RandevuForm
-from News.models import News
-from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
@@ -15,7 +12,7 @@ from django.views.decorators.http import require_http_methods
 options = {
     'api_key': os.getenv('IYZIPAY_API_KEY', 'sandbox-4pXMNqLNKKyHdjhPdsAOpgsJt3wlOSqU'),
     'secret_key': os.getenv('IYZIPAY_SECRET_KEY', 'sandbox-z9a7giJpDFJBemWw5l6HZVEPGvbGa9lk'),
-    'base_url': os.getenv('IYZIPAY_BASE_URL', 'https://sandbox-api.iyzipay.com'),
+    'base_url': os.getenv('IYZIPAY_BASE_URL', 'sandbox-api.iyzipay.com'),
 }
 
 
@@ -66,7 +63,7 @@ def payment(request):
         'currency': 'TRY',
         'basketId': 'B67832',
         'paymentGroup': 'PRODUCT',
-        'callbackUrl': request.build_absolute_uri(reverse('result')),
+        'callbackUrl': request.build_absolute_uri('/payment/result/'),
         'buyer': buyer,
         'shippingAddress': address,
         'billingAddress': address,
@@ -135,20 +132,8 @@ def result(request):
 
 
 def success(request):
-    form = RandevuForm()
-    news = News.objects.order_by('-tarih')
-    return render(request, 'ok.html', {
-        'success': 'İşlem Başarılı',
-        'form': form,
-        'news': news,
-    })
+    return render(request, 'ok.html', {'success': 'İşlem Başarılı'})
 
 
 def fail(request):
-    form = RandevuForm()
-    news = News.objects.order_by('-tarih')
-    return render(request, 'fail.html', {
-        'fail': 'İşlem Başarısız',
-        'form': form,
-        'news': news,
-    })
+    return render(request, 'fail.html', {'fail': 'İşlem Başarısız'})
