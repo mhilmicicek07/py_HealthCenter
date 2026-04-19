@@ -1,8 +1,6 @@
-from django.shortcuts import render,redirect
-from News.models import *
-from News.views import news_view
-from Team.models import *
-from Team.views import team_view
+from django.shortcuts import render
+from News.models import Author, Category, News
+from Team.models import Team
 from Appointment.forms import RandevuForm
 
 # Create your views here.

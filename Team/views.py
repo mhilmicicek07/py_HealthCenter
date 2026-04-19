@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import *
+from django.shortcuts import get_object_or_404, render
+from .models import Team
 from News.models import News
 
 # Create your views here.
@@ -7,16 +7,16 @@ def team_view(request):
 
     team = Team.objects.all()
     
-    return render(request, 'Home/index.html', {
+    return render(request, 'Team/team.html', {
         'team': team,
     })
 
 def team_detail_view(request,slug):
 
     news = News.objects.all()
-    team = Team.objects.filter(slug=slug)
+    member = get_object_or_404(Team, slug=slug)
 
     return render(request, 'Team/team.html', {
-        'team': team,
+        'team': [member],
         'news': news,
     })

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import fail, payment, result, success
 
 urlpatterns = [
     path('', payment, name='ödeme_page'),

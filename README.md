@@ -28,7 +28,15 @@ Bu proje, bir sağlık merkezi için **randevu yönetimi**, **hasta kayıt işle
 2. Dizin içerisine girin: `cd py_HealthCenter`
 3. Bağımlılıkları yükleyin: `pip install django pillow iyzipay`
 4. Veritabanını güncelleyin: `python manage.py migrate`
-5. Sunucuyu başlatın: `python manage.py runserver`
+5. Statik dosyaları toplayın (deploy için önerilir): `python manage.py collectstatic --noinput`
+6. Sunucuyu başlatın: `python manage.py runserver`
+
+### 🔑 Ortam Değişkenleri
+- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (varsayılan: sandbox-api.iyzipay.com) ödeme entegrasyonu için kullanılır.
+- Değer girmezseniz sandbox anahtarları devreye girer; üretim için kendi anahtarlarınızı tanımlayın.
+
+### 🧪 Test
+- `python manage.py test`
 
 ---
 
@@ -56,7 +64,15 @@ This project is a **Django-based** web application designed to streamline **appo
 2. Navigate to directory: `cd py_HealthCenter`
 3. Install dependencies: `pip install django pillow iyzipay`
 4. Migrate database: `python manage.py migrate`
-5. Start server: `python manage.py runserver`
+5. Collect static files (recommended for deploy): `python manage.py collectstatic --noinput`
+6. Start server: `python manage.py runserver`
+
+### 🔑 Environment Variables
+- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (default: sandbox-api.iyzipay.com) are read by the payment integration.
+- Sandbox keys are used by default; set your own for production.
+
+### 🧪 Tests
+- `python manage.py test`
 
 ---
 
@@ -84,7 +100,15 @@ Dieses Projekt ist eine **Django-basierte** Webanwendung, die entwickelt wurde, 
 2. In das Verzeichnis wechseln: `cd py_HealthCenter`
 3. Abhängigkeiten installieren: `pip install django pillow iyzipay`
 4. Datenbank migrieren: `python manage.py migrate`
-5. Server starten: `python manage.py runserver`
+5. Statische Dateien sammeln (für Deploy empfohlen): `python manage.py collectstatic --noinput`
+6. Server starten: `python manage.py runserver`
+
+### 🔑 Umgebungsvariablen
+- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (Standard: sandbox-api.iyzipay.com) werden vom Zahlungsmodul gelesen.
+- Ohne diese Werte werden Sandbox-Schlüssel genutzt; für Produktion eigene Schlüssel setzen.
+
+### 🧪 Tests
+- `python manage.py test`
 
 ---
 
