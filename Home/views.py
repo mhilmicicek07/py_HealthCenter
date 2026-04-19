@@ -3,11 +3,9 @@ from News.models import Author, Category, News
 from Team.models import Team
 from Appointment.forms import RandevuForm
 
-# Create your views here.
 
 def index_view(request):
-
-    news =  News.objects.all()
+    news = News.objects.order_by('-tarih')
     category = Category.objects.all()
     author = Author.objects.all()
     team = Team.objects.all()
@@ -15,8 +13,8 @@ def index_view(request):
     
     return render(request, 'Home/index.html', {
         'news': news,
-        'category':category,
+        'category': category,
         'author': author,
-        'team':team,
+        'team': team,
         'form': form,
     })

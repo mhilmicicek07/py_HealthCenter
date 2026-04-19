@@ -5,7 +5,7 @@ from .forms import RandevuForm
 from News.models import News
 
 def randevu_view(request):
-    news = News.objects.all()
+    news = News.objects.order_by('-tarih')
     form = RandevuForm(request.POST or None)
 
     if request.method == 'POST':
@@ -27,4 +27,3 @@ def randevu_view(request):
         'form': form,
         'news': news,
     })
-#! #TODO: mesajlar sayfada görünmüyor sebebini çözemedim.
