@@ -27,22 +27,15 @@
             <a href="{% url 'randevu_page' %}" class="navbar-btn">Randevu Alın</a>
           </li>
         {% else %}
-          <li class="active"><a href="{% url 'index_page' %}" class="smoothScroll">Anasayfa</a></li>
-          <li><a href="/#about" class="smoothScroll">Hakkımızda</a></li>
-          <li><a href="/#team" class="smoothScroll">Ekibimiz</a></li>
-          <li><a href="/#news" class="smoothScroll">Haberler</a></li>
-            {% if request.path == 'team/' and 'news/' %}
-              <li><a href="/#google-map" class="smoothScroll">İletişim</a></li>
-              <li class="appointment-btn">
-                <a href="{% url 'randevu_page' %}" class="navbar-btn">Randevu Alın</a>
-              </li>
-              {% else %}
-              <li><a href="#google-map" class="smoothScroll">İletişim</a></li>
-              <li class="appointment-btn">
-                <a href="{% url 'randevu_page' %}" class="navbar-btn">Randevu Alın</a>
-              </li>
-            {% endif %}
-          {% endif %}
+          <li class="active"><a href="{% url 'index_page' %}">Anasayfa</a></li>
+          <li><a href="/#about">Hakkımızda</a></li>
+          <li><a href="/#team">Ekibimiz</a></li>
+          <li><a href="/#news">Haberler</a></li>
+          <li><a href="/#google-map">İletişim</a></li>
+          <li class="appointment-btn">
+            <a href="{% url 'randevu_page' %}" class="navbar-btn">Randevu Alın</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
 

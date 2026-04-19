@@ -1,16 +1,18 @@
-from django.shortcuts import render, redirect
-from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
+import os
+import json
+
+import iyzipay
 from django.contrib import messages
 from django.http import HttpResponse
-import iyzipay
-import json
+from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 # İyziPay API bilgileri (sandbox veya production)
 options = {
-    'api_key': 'sandbox-4pXMNqLNKKyHdjhPdsAOpgsJt3wlOSqU',
-    'secret_key': 'sandbox-z9a7giJpDFJBemWw5l6HZVEPGvbGa9lk',
-    'base_url': 'sandbox-api.iyzipay.com',
+    'api_key': os.getenv('IYZIPAY_API_KEY', 'sandbox-4pXMNqLNKKyHdjhPdsAOpgsJt3wlOSqU'),
+    'secret_key': os.getenv('IYZIPAY_SECRET_KEY', 'sandbox-z9a7giJpDFJBemWw5l6HZVEPGvbGa9lk'),
+    'base_url': os.getenv('IYZIPAY_BASE_URL', 'sandbox-api.iyzipay.com'),
 }
 
 
@@ -95,7 +97,7 @@ def result(request):
     """
     Ödeme sonucu callback endpoint'i.
     """
-    token = request.session.get('checkout_token')
+    token = request.POST.get('token') or request.session.get('checkout_token')
     if not token:
         messages.error(request, "Geçersiz veya süresi dolmuş ödeme isteği.")
         return redirect('randevu_page')
