@@ -1,4 +1,4 @@
-# 🏥 Health Center Management System
+# Health Center Management System
 
 [🇹🇷 Türkçe](#-türkçe) | [🇺🇸 English](#-english) | [🇩🇪 Deutsch](#-deutsch)
 
@@ -6,116 +6,179 @@
 
 ## 🇹🇷 Türkçe
 
-### 📋 Proje Hakkında
-Bu proje, bir sağlık merkezi için **randevu yönetimi**, **hasta kayıt işlemleri**, **doktor takibi** ve **ödeme süreçlerini** (Iyzico entegrasyonu) kolaylaştırmak amacıyla geliştirilmiş bir **Django** tabanlı web uygulamasıdır. Kullanıcı dostu arayüzü sayesinde randevu oluşturma ve yönetim süreçleri hızlıca gerçekleştirilebilir.
+### Proje Hakkında
 
-### 🚀 Özellikler
-- 📅 **Randevu Sistemi:** Hastaların bölüm seçerek uygun tarih ve saate göre randevu oluşturması.
-- 💳 **Ödeme Entegrasyonu:** Iyzico (Iyzipay) üzerinden güvenli ödeme altyapısı.
-- 👩‍⚕️ **Doktor & Ekip Yönetimi:** Sağlık merkezi personelinin ve doktorların profillerinin yönetimi.
-- 📰 **Haberler & Duyurular:** Dinamik haber ve duyuru içerikleri.
-- 🔐 **Gelişmiş Admin Paneli:** Tüm kayıtların (randevu, hasta, ekip) yönetilebileceği panel.
-- 📱 **Responsive Tasarım:** Bootstrap 5 ile tüm cihazlara uyumlu arayüz.
+Django tabanlı bir sağlık merkezi yönetim uygulaması. Randevu oluşturma, ödeme işlemleri, doktor/ekip profil yönetimi ve haber yayınlama gibi işlevleri kapsar.
 
-### 🛠️ Kullanılan Teknolojiler
+### Özellikler
+
+- **Randevu Sistemi:** Hastalar bölüm seçerek tarih ve saate göre randevu oluşturur. Çakışan randevular engellenir.
+- **Ödeme Entegrasyonu:** Başarılı randevu kaydının ardından Iyzipay checkout formu açılır; ödeme sonucu `/payment/result/` callback'i ile işlenir.
+- **Doktor & Ekip Yönetimi:** `Team` uygulaması; isim, branş, dahili numara, e-posta, özgeçmiş ve fotoğraf alanlarını yönetir.
+- **Haberler:** `News` uygulaması; kategori, yazar ve slug tabanlı haber içerikleri sunar; en son haberler tüm şablonlarda context processor aracılığıyla erişilebilir.
+- **Admin Paneli:** Django'nun yerleşik admin arayüzü; tüm modeller kayıtlıdır.
+- **Responsive Tasarım:** Bootstrap 5 ile tüm cihazlara uyumlu arayüz.
+
+### Teknolojiler
+
 - **Backend:** Python, Django 4.2+
 - **Veritabanı:** SQLite3
-- **Ödeme:** Iyzico API (Iyzipay)
+- **Ödeme:** Iyzipay API
 - **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, FontAwesome
 
-### ⚙️ Kurulum
-1. Repoyu klonlayın: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
-2. Dizin içerisine girin: `cd py_HealthCenter`
-3. Bağımlılıkları yükleyin: `pip install django pillow iyzipay`
-4. Veritabanını güncelleyin: `python manage.py migrate`
-5. Statik dosyaları toplayın (deploy için önerilir): `python manage.py collectstatic --noinput`
-6. Sunucuyu başlatın: `python manage.py runserver`
+### Gereksinimler
 
-### 🔑 Ortam Değişkenleri
-- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (varsayılan: sandbox-api.iyzipay.com) ödeme entegrasyonu için kullanılır.
-- Değer girmezseniz sandbox anahtarları devreye girer; üretim için kendi anahtarlarınızı tanımlayın.
+- Python 3.10+
+- Paketler: `Django`, `Pillow`, `iyzipay`
 
-### 🧪 Test
-- `python manage.py test`
+### Kurulum
+
+```bash
+git clone https://github.com/mhilmicicek07/py_HealthCenter.git
+cd py_HealthCenter
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+### Ortam Değişkenleri
+
+Ödeme modülü (`Payment/views.py`) aşağıdaki değişkenleri okur; tanımlanmazsa sandbox anahtarları kullanılır:
+
+| Değişken | Varsayılan |
+|---|---|
+| `IYZIPAY_API_KEY` | Sandbox anahtarı |
+| `IYZIPAY_SECRET_KEY` | Sandbox anahtarı |
+| `IYZIPAY_BASE_URL` | `sandbox-api.iyzipay.com` |
+
+Üretim ortamı için bu değişkenleri kendi anahtarlarınızla tanımlayın.
+
+### Test
+
+```bash
+python manage.py test
+```
 
 ---
 
 ## 🇺🇸 English
 
-### 📋 About the Project
-This project is a **Django-based** web application designed to streamline **appointment management**, **patient registration**, **doctor tracking**, and **payment processes** (Iyzico integration) for a health center. Its user-friendly interface allows for quick appointment creation and management.
+### About the Project
 
-### 🚀 Features
-- 📅 **Appointment System:** Patients can choose a department and schedule appointments based on date and time.
-- 💳 **Payment Integration:** Secure payment infrastructure via Iyzico (Iyzipay).
-- 👩‍⚕️ **Doctor & Team Management:** Management of profiles for medical staff and doctors.
-- 📰 **News & Announcements:** Dynamic news and announcement content.
-- 🔐 **Advanced Admin Panel:** A panel to manage all records (appointments, patients, team).
-- 📱 **Responsive Design:** Interface compatible with all devices using Bootstrap 5.
+A Django-based health center management application covering appointment booking, payment processing, doctor/team profile management, and news publishing.
 
-### 🛠️ Technologies Used
+### Features
+
+- **Appointment System:** Patients select a department, date, and time. Conflicting slots are blocked.
+- **Payment Integration:** After a successful appointment, an Iyzipay checkout form is presented. The result is handled via the `/payment/result/` callback.
+- **Doctor & Team Management:** The `Team` app manages name, specialty, extension, e-mail, bio, and photo for each staff member.
+- **News:** The `News` app provides category- and author-based articles with slug-based URLs; latest news is available in all templates via a context processor.
+- **Admin Panel:** Django's built-in admin; all models are registered.
+- **Responsive Design:** Bootstrap 5 interface compatible with all devices.
+
+### Technologies
+
 - **Backend:** Python, Django 4.2+
 - **Database:** SQLite3
-- **Payment:** Iyzico API (Iyzipay)
+- **Payment:** Iyzipay API
 - **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, FontAwesome
 
-### ⚙️ Installation
-1. Clone the repo: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
-2. Navigate to directory: `cd py_HealthCenter`
-3. Install dependencies: `pip install django pillow iyzipay`
-4. Migrate database: `python manage.py migrate`
-5. Collect static files (recommended for deploy): `python manage.py collectstatic --noinput`
-6. Start server: `python manage.py runserver`
+### Requirements
 
-### 🔑 Environment Variables
-- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (default: sandbox-api.iyzipay.com) are read by the payment integration.
-- Sandbox keys are used by default; set your own for production.
+- Python 3.10+
+- Packages: `Django`, `Pillow`, `iyzipay`
 
-### 🧪 Tests
-- `python manage.py test`
+### Installation
+
+```bash
+git clone https://github.com/mhilmicicek07/py_HealthCenter.git
+cd py_HealthCenter
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+### Environment Variables
+
+The payment module (`Payment/views.py`) reads the following variables; sandbox keys are used when they are not set:
+
+| Variable | Default |
+|---|---|
+| `IYZIPAY_API_KEY` | Sandbox key |
+| `IYZIPAY_SECRET_KEY` | Sandbox key |
+| `IYZIPAY_BASE_URL` | `sandbox-api.iyzipay.com` |
+
+Set these to your own keys for production.
+
+### Tests
+
+```bash
+python manage.py test
+```
 
 ---
 
 ## 🇩🇪 Deutsch
 
-### 📋 Über das Projekt
-Dieses Projekt ist eine **Django-basierte** Webanwendung, die entwickelt wurde, um **Terminmanagement**, **Patientenregistrierung**, **Arztverfolgung** und **Zahlungsprozesse** (Iyzico-Integration) für ein Gesundheitszentrum zu optimieren. Die benutzerfreundliche Oberfläche ermöglicht eine schnelle Terminerstellung und -verwaltung.
+### Über das Projekt
 
-### 🚀 Funktionen
-- 📅 **Terminsystem:** Patienten können eine Abteilung wählen und Termine nach Datum und Uhrzeit vereinbaren.
-- 💳 **Zahlungsintegration:** Sichere Zahlungsinfrastruktur über Iyzico (Iyzipay).
-- 👩‍⚕️ **Arzt- & Team-Management:** Verwaltung von Profilen für medizinisches Personal und Ärzte.
-- 📰 **Nachrichten & Ankündigungen:** Dynamische Inhalte für Nachrichten und Ankündigungen.
-- 🔐 **Erweitertes Admin-Panel:** Ein Panel zur Verwaltung aller Datensätze (Termine, Patienten, Team).
-- 📱 **Responsive Design:** Mit Bootstrap 5 kompatible Benutzeroberfläche für alle Geräte.
+Eine Django-basierte Webanwendung für Gesundheitszentren mit Terminbuchung, Zahlungsabwicklung, Arzt-/Team-Profilverwaltung und Nachrichtenpublikation.
 
-### 🛠️ Verwendete Technologien
+### Funktionen
+
+- **Terminsystem:** Patienten wählen Abteilung, Datum und Uhrzeit. Doppelbuchungen werden verhindert.
+- **Zahlungsintegration:** Nach erfolgreicher Terminbuchung wird ein Iyzipay-Checkout-Formular angezeigt; das Ergebnis wird über den `/payment/result/`-Callback verarbeitet.
+- **Arzt- & Teamverwaltung:** Die `Team`-App verwaltet Name, Fachgebiet, Durchwahl, E-Mail, Lebenslauf und Foto.
+- **Nachrichten:** Die `News`-App bietet kategorie- und autorenbasierte Artikel mit Slug-URLs; aktuelle Nachrichten sind über einen Context Processor in allen Templates verfügbar.
+- **Admin-Panel:** Djangos eingebaute Admin-Oberfläche; alle Modelle sind registriert.
+- **Responsive Design:** Bootstrap-5-Oberfläche für alle Geräte.
+
+### Technologien
+
 - **Backend:** Python, Django 4.2+
 - **Datenbank:** SQLite3
-- **Zahlung:** Iyzico API (Iyzipay)
+- **Zahlung:** Iyzipay API
 - **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, FontAwesome
 
-### ⚙️ Installation
-1. Repository klonen: `git clone https://github.com/mhilmicicek07/py_HealthCenter.git`
-2. In das Verzeichnis wechseln: `cd py_HealthCenter`
-3. Abhängigkeiten installieren: `pip install django pillow iyzipay`
-4. Datenbank migrieren: `python manage.py migrate`
-5. Statische Dateien sammeln (für Deploy empfohlen): `python manage.py collectstatic --noinput`
-6. Server starten: `python manage.py runserver`
+### Voraussetzungen
 
-### 🔑 Umgebungsvariablen
-- `IYZIPAY_API_KEY`, `IYZIPAY_SECRET_KEY`, `IYZIPAY_BASE_URL` (Standard: sandbox-api.iyzipay.com) werden vom Zahlungsmodul gelesen.
-- Ohne diese Werte werden Sandbox-Schlüssel genutzt; für Produktion eigene Schlüssel setzen.
+- Python 3.10+
+- Pakete: `Django`, `Pillow`, `iyzipay`
 
-### 🧪 Tests
-- `python manage.py test`
+### Installation
+
+```bash
+git clone https://github.com/mhilmicicek07/py_HealthCenter.git
+cd py_HealthCenter
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+### Umgebungsvariablen
+
+Das Zahlungsmodul (`Payment/views.py`) liest die folgenden Variablen; ohne Angabe werden Sandbox-Schlüssel genutzt:
+
+| Variable | Standard |
+|---|---|
+| `IYZIPAY_API_KEY` | Sandbox-Schlüssel |
+| `IYZIPAY_SECRET_KEY` | Sandbox-Schlüssel |
+| `IYZIPAY_BASE_URL` | `sandbox-api.iyzipay.com` |
+
+Für Produktion eigene Schlüssel setzen.
+
+### Tests
+
+```bash
+python manage.py test
+```
 
 ---
 
-### 👨‍💻 Developer
-**Mehmet Hilmi Çiçek**
-- 💼 Full Stack Web Developer
-- 📍 Geislingen an der Steige
+### Developer
 
-### 🪪 License
+**Mehmet Hilmi Çiçek**
+
+### License
+
 This project is open source. Feel free to use and improve it.
